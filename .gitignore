@@ -22,3 +22,7 @@ Thumbs.db
 
 # Docker
 pgdata/
+
+# Logs
+*.log
+dev-debug.log
