@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 248 250 252;
+  --surface: 255 255 255;
+  --surface-2: 241 245 249;
+  --edge: 226 232 240;
+  --ink: 17 24 39;
+  --muted: 100 116 139;
+  --accent: 37 99 235;
+  --accent-hover: 29 78 216;
+  --accent-soft: 37 99 235;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: 10 15 26;
+  --surface: 17 26 43;
+  --surface-2: 24 35 55;
+  --edge: 33 45 68;
+  --ink: 241 245 249;
+  --muted: 148 163 184;
+  --accent: 96 165 250;
+  --accent-hover: 59 130 246;
+  --accent-soft: 37 99 235;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg font-sans text-ink;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    @apply bg-brand/20 text-inherit;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-edge;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted/40;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-edge bg-surface shadow-soft;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted;
+  }
+  .input {
+    @apply w-full rounded-xl border border-edge bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-muted/60 focus:border-brand focus:ring-2 focus:ring-brand/20;
+  }
+  .btn-focus {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+  .th {
+    @apply px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-muted;
+  }
+  .td {
+    @apply px-4 py-3.5 text-sm text-ink;
+  }
+}

@@ -1,0 +1,62 @@
+name: rideflow
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: rideflow-postgres
+    environment:
+      POSTGRES_USER: rideflow
+      POSTGRES_PASSWORD: rideflow
+      POSTGRES_DB: rideflow
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rideflow -d rideflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: rideflow-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: rideflow-backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://rideflow:rideflow@postgres:5432/rideflow
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: rideflow-dev-secret-change-me
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build: ./frontend
+    container_name: rideflow-frontend
+    ports:
+      - "3001:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  pgdata:
