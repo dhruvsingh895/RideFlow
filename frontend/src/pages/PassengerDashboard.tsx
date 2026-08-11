@@ -8,7 +8,6 @@ import {
   IndianRupee,
   MapPin,
   Navigation,
-  Wallet,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -123,12 +122,6 @@ export function PassengerDashboard() {
                 <Button variant="secondary" size="sm">
                   <History className="h-4 w-4" />
                   History
-                </Button>
-              </Link>
-              <Link to="/wallet">
-                <Button variant="outline" size="sm">
-                  <Wallet className="h-4 w-4" />
-                  Wallet
                 </Button>
               </Link>
             </>
