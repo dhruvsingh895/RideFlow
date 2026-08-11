@@ -29,11 +29,10 @@ services:
     dockerContext: ./frontend
     healthCheckPath: /
     envVars:
+      # Free-plan services can't resolve internal hostnames, so use the
+      # backend's public hostname (its slug is stable: <name>-<random>).
       - key: BACKEND_URL
-        fromService:
-          name: backend
-          type: web
-          property: hostport
+        value: backend-6g50.onrender.com
 
   - type: keyvalue
     name: redis
