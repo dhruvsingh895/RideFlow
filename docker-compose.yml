@@ -52,6 +52,8 @@ services:
   frontend:
     build: ./frontend
     container_name: rideflow-frontend
+    environment:
+      BACKEND_URL: backend:8000
     ports:
       - "3001:80"
     depends_on:
