@@ -116,16 +116,6 @@ export function PassengerDashboard() {
             day: "numeric",
             month: "long",
           })} · Ready to ride?`}
-          actions={
-            <>
-              <Link to="/history">
-                <Button variant="secondary" size="sm">
-                  <History className="h-4 w-4" />
-                  History
-                </Button>
-              </Link>
-            </>
-          }
         />
 
         {active && (

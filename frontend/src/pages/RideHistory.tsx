@@ -64,14 +64,6 @@ export function RideHistory() {
           title="Ride history"
           subtitle={`${totals.count} completed · ${inr(totals.sum)} spent`}
           icon={History}
-          action={
-            <Link
-              to="/passenger"
-              className="text-sm font-semibold text-brand hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              ← Back to dashboard
-            </Link>
-          }
         />
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

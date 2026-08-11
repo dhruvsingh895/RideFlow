@@ -159,14 +159,7 @@ function UserMenu() {
   if (!user) return null;
 
   const items: { label: string; to: string; icon: typeof UserIcon }[] = [
-    { label: "Dashboard", to: homePath(user.role), icon: LayoutDashboard },
     { label: "Profile", to: "/profile", icon: UserIcon },
-    ...(user.role !== "admin"
-      ? [
-          { label: "Wallet", to: "/wallet", icon: Wallet },
-          { label: "Ride History", to: "/history", icon: History },
-        ]
-      : []),
     { label: "Settings", to: "/settings", icon: Settings },
   ];
 
