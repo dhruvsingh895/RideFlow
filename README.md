@@ -32,6 +32,17 @@ docker compose up --build
 
 Tables are created and demo data is seeded automatically on first boot.
 
+## Live deployment (Render)
+
+| Service  | URL                                   |
+| -------- | ------------------------------------- |
+| Frontend | https://frontend-goq1.onrender.com    |
+| Backend  | https://backend-6g50.onrender.com     |
+
+Infrastructure (frontend, backend, PostgreSQL, Redis) is defined in `render.yaml` and
+synced from the `main` branch. The frontend's nginx proxies `/api` and `/ws` to the
+backend's public URL (free-plan services can't resolve Render's internal hostnames).
+
 ### Demo accounts (password for all: `demo1234`)
 
 | Role      | Email                     |
