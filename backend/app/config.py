@@ -1,3 +1,6 @@
+from urllib.parse import urlparse
+
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -11,6 +14,19 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 30
     refresh_token_expire_days: int = 7
     grid_size: int = 20
+
+    @field_validator("database_url")
+    @classmethod
+    def normalize_database_url(cls, value: str) -> str:
+        if value.startswith("postgresql://"):
+            value = value.replace("postgresql://", "postgresql+asyncpg://", 1)
+        host = urlparse(value).hostname or ""
+        if host in ("localhost", "127.0.0.1", "::1"):
+            return value
+        if "ssl=" not in value and "sslmode" not in value:
+            separator = "&" if "?" in value else "?"
+            value = f"{value}{separator}ssl=require"
+        return value
 
 
 settings = Settings()
